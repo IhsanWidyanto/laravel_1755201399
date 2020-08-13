@@ -1,7 +1,13 @@
 @extends('layouts.app')
-@section('tittle','Halaman Mahasiswa')
+@section('title','Mahasiswa Page')
+@section('bread1','Mahasiswa ')
+@section('bread2','Data')
 @section('content')
-    <h1>Master Mahasiswa</h1>
+    <h3>Master Data Mahasiswa</h3>
+    <p><a href="/mhs/create" class="btn btn-succes btn-sm">Tambah</a></p>
+
+    @include('layouts.alert')
+
     <table class="table table-striped" id="mhs-table">
         <thead>
             <tr>
@@ -10,6 +16,7 @@
                 <th>Nama_Lengkap</th>
                 <th>Prodi</th>
                 <th>Alamat</th>
+                <th>Pilihan</th>
             </tr>
         </thead>
     </table>
@@ -18,13 +25,14 @@ $(function() {
     $('#mhs-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{{ route('mhs_list') }}',
+        ajax: '{{ route('mhs.list') }}',
         columns: [
-            { data: 'id', name: 'id' },
+            { data: 'DT_RowIndex', name: 'DT_RowIndex'},
             { data: 'nim', name: 'nim' },
             { data: 'nama_lengkap', name: 'nama_lengkap' },
-            { data: 'prodi', name: 'prodi' },
-            { data: 'alamat', name: 'alamat' }
+            { data: 'mprodi.nama_prodi', name: 'nama_prodi' },
+            { data: 'alamat', name: 'alamat' },
+            { data: 'action', name: 'action', orderable: false, searchable: false }
         ]
     });
 });
